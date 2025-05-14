@@ -55,10 +55,3 @@ The project uses NativeWind (Tailwind CSS) for styling. Custom theme configurati
 - Custom colors
 - Responsive design utilities
 
-## Contributing
-
-Feel free to submit issues and enhancement requests!
-
-## License
-
-This project is MIT licensed.
