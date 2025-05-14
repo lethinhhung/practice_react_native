@@ -1,50 +1,64 @@
-# Welcome to your Expo app 👋
+# React Native Todo App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple yet elegant todo application built with React Native, Expo (SDK 52), and NativeWind.
 
-## Get started
+## Features
 
-1. Install dependencies
+- ✨ Modern UI with Tailwind CSS styling
+- 📱 Bottom tab navigation
+- 🎨 Custom fonts (Rubik family)
+- ✅ Todo management functionality
+- 🎯 Clean and minimalist design
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+- [Expo](https://expo.dev/) - React Native framework
+- [NativeWind](https://www.nativewind.dev/) - Tailwind CSS for React Native
+- [Expo Router](https://docs.expo.dev/router/introduction/) - File-based routing
+- TypeScript for type safety
 
-   ```bash
-    npx expo start
-   ```
+## Getting Started
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+1. Install dependencies:
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Start the development server:
+```bash
+npx expo start
+```
 
-## Learn more
+3. Run on your preferred platform:
+- Press `a` for Android
+- Press `i` for iOS
+- Press `w` for web
 
-To learn more about developing your project with Expo, look at the following resources:
+## Project Structure
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+├── app/                   # Main application code
+│   ├── (tabs)/           # Tab-based navigation screens
+│   ├── _layout.tsx       # Root layout configuration
+│   └── globals.css       # Global styles
+├── assets/               # Static assets (fonts, icons, images)
+├── components/           # Reusable components
+├── constants/            # Constant values and configurations
+└── tsconfig.json        # TypeScript configuration
+```
 
-## Join the community
+## Styling
 
-Join our community of developers creating universal apps.
+The project uses NativeWind (Tailwind CSS) for styling. Custom theme configuration includes:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Custom font families (Rubik variants)
+- Custom colors
+- Responsive design utilities
+
+## Contributing
+
+Feel free to submit issues and enhancement requests!
+
+## License
+
+This project is MIT licensed.
