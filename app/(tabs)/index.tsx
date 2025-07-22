@@ -12,8 +12,10 @@ import {
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import icons from "@/constants/icons";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const Home = () => {
+  const { isDark } = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   interface Todo {
     id: number;
@@ -78,24 +80,31 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView className="p-5 h-full">
-      <StatusBar backgroundColor={"white"} />
+    <SafeAreaView className={`p-5 h-full ${isDark ? 'bg-dark-100' : 'bg-white'}`}>
+      <StatusBar backgroundColor={isDark ? "#1A1A1A" : "white"} />
 
       <View className="pb-3">
-        <Text className="text-xl font-rubik-bold text-black-300">Todos</Text>
+        <Text className={`text-xl font-rubik-bold ${isDark ? 'text-dark-700' : 'text-black-300'}`}>
+          Todos
+        </Text>
       </View>
 
-      <View className="w-full h-0.5 bg-gray-200 rounded-full"></View>
+      <View className={`w-full h-0.5 rounded-full ${isDark ? 'bg-dark-400' : 'bg-gray-200'}`}></View>
 
       <FlatList
         data={data}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleChangeTodoState(item)}>
-            <View className="flex flex-col p-5 mt-5 bg-white rounded-lg">
+            <View className={`flex flex-col p-5 mt-5 rounded-lg border ${
+              isDark ? 'bg-dark-200 border-dark-300' : 'bg-white border-gray-100 shadow-sm'
+            }`}>
               <Text
                 className={
                   "text-base font-rubik-semibold " +
-                  (item.completed ? "line-through text-black-100" : "")
+                  (item.completed 
+                    ? `line-through ${isDark ? 'text-dark-500' : 'text-black-100'}` 
+                    : isDark ? 'text-dark-700' : 'text-black-300'
+                  )
                 }
               >
                 {item.title}
@@ -104,7 +113,10 @@ const Home = () => {
               <Text
                 className={
                   "text-base font-rubik " +
-                  (item.completed ? "line-through text-black-100" : "")
+                  (item.completed 
+                    ? `line-through ${isDark ? 'text-dark-500' : 'text-black-100'}` 
+                    : isDark ? 'text-dark-600' : 'text-black-200'
+                  )
                 }
               >
                 {item.description}
@@ -114,7 +126,9 @@ const Home = () => {
         )}
         ListEmptyComponent={
           <View className="w-full h-full items-center justify-center p-10">
-            <Text>No todo added yet.</Text>
+            <Text className={isDark ? 'text-dark-600' : 'text-black-200'}>
+              No todo added yet.
+            </Text>
           </View>
         }
         keyExtractor={(item, index) =>
@@ -127,7 +141,9 @@ const Home = () => {
 
       <View className="w-full items-center h-0">
         <TouchableOpacity
-          className="absolute mb-5 bottom-10 w-20 h-20 bg-black items-center justify-center rounded-full p-5"
+          className={`absolute mb-5 bottom-10 w-20 h-20 items-center justify-center rounded-full p-5 shadow-lg ${
+            isDark ? 'bg-primary-400 shadow-black/50' : 'bg-black shadow-gray-500/30'
+          }`}
           onPress={handleAddTodo}
         >
           <Text className="text-white text-xl font-rubik items-center justify-center ">
@@ -142,36 +158,63 @@ const Home = () => {
         visible={modalVisible} // Điều khiển hiển thị
         onRequestClose={() => setModalVisible(false)} // Đóng modal khi nhấn Back (Android)
       >
-        <SafeAreaView className="h-full p-5 flex flex-col justify-between">
+        <SafeAreaView className={`h-full p-5 flex flex-col justify-between ${
+          isDark ? 'bg-dark-100' : 'bg-white'
+        }`}>
+          <StatusBar backgroundColor={isDark ? "#1A1A1A" : "white"} />
           <View className="w-full flex flex-col gap-5">
-            <Text className="text-xl font-rubik-bold text-black-300">
+            <Text className={`text-xl font-rubik-bold ${
+              isDark ? 'text-dark-700' : 'text-black-300'
+            }`}>
               Add Todo
             </Text>
 
-            <View className="w-full h-0.5 bg-gray-100 rounded-full"></View>
+            <View className={`w-full h-0.5 rounded-full ${
+              isDark ? 'bg-dark-300' : 'bg-gray-100'
+            }`}></View>
 
             <View className="w-full">
               <View className="mb-5">
-                <Text className="text-lg font-rubik-semibold">Title</Text>
+                <Text className={`text-lg font-rubik-semibold ${
+                  isDark ? 'text-dark-700' : 'text-black-300'
+                }`}>
+                  Title
+                </Text>
               </View>
 
               <View className="w-full h-20">
                 <TextInput
                   onPress={changeButtonPosition}
                   onChangeText={(text) => handleTitleChange(text)}
-                  className="bg-gray-200 w-full p-5 rounded-lg"
+                  className={`w-full p-5 rounded-lg ${
+                    isDark 
+                      ? 'bg-dark-300 text-dark-700 placeholder:text-dark-500' 
+                      : 'bg-gray-200 text-black-300'
+                  }`}
+                  placeholderTextColor={isDark ? '#737373' : '#666876'}
+                  placeholder="Enter todo title"
                 ></TextInput>
               </View>
 
               <View className="mb-5">
-                <Text className="text-lg font-rubik-semibold">Description</Text>
+                <Text className={`text-lg font-rubik-semibold ${
+                  isDark ? 'text-dark-700' : 'text-black-300'
+                }`}>
+                  Description
+                </Text>
               </View>
 
               <View className="w-full h-20">
                 <TextInput
                   onPress={changeButtonPosition}
                   onChangeText={(text) => handleDescriptionChange(text)}
-                  className="bg-gray-200 w-full p-5 rounded-lg"
+                  className={`w-full p-5 rounded-lg ${
+                    isDark 
+                      ? 'bg-dark-300 text-dark-700 placeholder:text-dark-500' 
+                      : 'bg-gray-200 text-black-300'
+                  }`}
+                  placeholderTextColor={isDark ? '#737373' : '#666876'}
+                  placeholder="Enter todo description"
                 ></TextInput>
               </View>
             </View>
@@ -180,8 +223,9 @@ const Home = () => {
           <View className="w-full items-center">
             <TouchableOpacity
               className={
-                "w-20 h-20 bg-black rounded-full p-5 items-center justify-center " +
-                buttonPosition
+                `w-20 h-20 rounded-full p-5 items-center justify-center shadow-lg ${
+                  isDark ? 'bg-primary-400 shadow-black/50' : 'bg-black shadow-gray-500/30'
+                } ` + buttonPosition
               }
               onPress={handleSaveTodo}
             >
