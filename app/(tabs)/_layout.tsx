@@ -2,20 +2,23 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
 import icons from "@/constants/icons";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const TabIcon = ({
   focused,
   icon,
   title,
+  isDarkMode,
 }: {
   focused: boolean;
   icon: any;
   title: string;
+  isDarkMode: boolean;
 }) => (
   <View className="flex-1 mt-3 flex flex-col items-center">
     <Image
       source={icon}
-      tintColor={focused ? "#0061ff" : "#666876"}
+      tintColor={focused ? "#0061ff" : (isDarkMode ? "#B3B3B3" : "#666876")}
       resizeMode="contain"
       className="size-6"
     />
@@ -23,7 +26,9 @@ const TabIcon = ({
       className={`${
         focused
           ? "text-primary-300 font-rubik-medium"
-          : "text-black-200 font-rubik"
+          : isDarkMode 
+            ? "text-dark-text-secondary font-rubik" 
+            : "text-black-200 font-rubik"
       } text-xs w-full text-center mt-1`}
     >
       {title}
@@ -32,14 +37,16 @@ const TabIcon = ({
 );
 
 const TabsLayout = () => {
+  const { isDarkMode } = useTheme();
+
   return (
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "white",
+          backgroundColor: isDarkMode ? "#2A2A2A" : "white",
           position: "absolute",
-          borderTopColor: "#0061FF1A",
+          borderTopColor: isDarkMode ? "#404040" : "#0061FF1A",
           borderTopWidth: 1,
           minHeight: 70,
         },
@@ -51,7 +58,7 @@ const TabsLayout = () => {
           title: "Home",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.home} title="Home" />
+            <TabIcon focused={focused} icon={icons.home} title="Home" isDarkMode={isDarkMode} />
           ),
         }}
       />
@@ -61,7 +68,7 @@ const TabsLayout = () => {
           title: "Explore",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.search} title="Explore" />
+            <TabIcon focused={focused} icon={icons.search} title="Explore" isDarkMode={isDarkMode} />
           ),
         }}
       />
@@ -71,7 +78,7 @@ const TabsLayout = () => {
           title: "Profile",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.person} title="Profile" />
+            <TabIcon focused={focused} icon={icons.person} title="Profile" isDarkMode={isDarkMode} />
           ),
         }}
       />
