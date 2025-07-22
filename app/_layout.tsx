@@ -2,9 +2,25 @@ import { useEffect } from "react";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 
 import "./globals.css";
-import { StatusBar } from "react-native";
+import { ThemeProvider, useTheme } from "../contexts/ThemeContext";
+
+// Inner component that uses the theme context
+function RootLayoutContent() {
+  const { isDark } = useTheme();
+
+  return (
+    <View className={`flex-1 ${isDark ? 'dark bg-dark-100' : 'bg-white'}`}>
+      <StatusBar style={isDark ? "light" : "dark"} backgroundColor={isDark ? "#1A1A1A" : "#ffffff"} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </View>
+  );
+}
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -27,8 +43,8 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <ThemeProvider>
+      <RootLayoutContent />
+    </ThemeProvider>
   );
 }
