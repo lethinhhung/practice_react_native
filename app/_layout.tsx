@@ -4,7 +4,8 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import "./globals.css";
-import { StatusBar } from "react-native";
+import { ThemeProvider } from "../contexts/ThemeContext";
+import { ThemeStatusBar } from "../components/ThemeStatusBar";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -27,8 +28,11 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <ThemeProvider>
+      <ThemeStatusBar />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </ThemeProvider>
   );
 }
